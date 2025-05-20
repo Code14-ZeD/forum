@@ -12,10 +12,10 @@ Check out the live version: [forum-pi-seven.vercel.app](https://forum-pi-seven.v
 
 ## 🎯 Key Features
 
-•⁠ ⁠*Clean, Intuitive UI* – Responsive design optimized for desktop and mobile.
-•⁠ ⁠*Social Sign‑On* – Secure authentication via GitHub and Google OAuth.
-•⁠ ⁠*Threaded Discussions* – Nested replies for organized conversations.
-•⁠ ⁠*Dark Mode* – User‑selectable light/dark themes.
+- ⁠*Clean, Intuitive UI* – Responsive design optimized for desktop and mobile.
+- ⁠*Social Sign‑On* – Secure authentication via GitHub and Google OAuth.
+- ⁠*Threaded Discussions* – Nested replies for organized conversations.
+- ⁠*Dark Mode* – User‑selectable light/dark themes.
 
 ---
 
@@ -34,9 +34,9 @@ Check out the live version: [forum-pi-seven.vercel.app](https://forum-pi-seven.v
 
 ## 📥 Prerequisites
 
-•⁠ ⁠Node.js v16+ and npm/yarn installed
-•⁠ ⁠A GitHub or Google account for OAuth
-•⁠ ⁠Access to a PostgreSQL-compatible database (Neon recommended)
+- ⁠Node.js v16+ and npm/yarn installed
+- ⁠A GitHub or Google account for OAuth
+- ⁠Access to a PostgreSQL-compatible database (Neon recommended)
 
 ---
 
@@ -89,9 +89,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 Forum App is primed for Vercel:
 
-1.⁠ ⁠Push your repository to GitHub.
-2.⁠ ⁠Connect it to your Vercel account.
-3.⁠ ⁠Add the same environment variables in Vercel dashboard.
+1.⁠ ⁠Push your repository to GitHub.</br>
+2.⁠ ⁠Connect it to your Vercel account.</br>
+3.⁠ ⁠Add the same environment variables in Vercel dashboard.</br>
 4.⁠ ⁠Deploy and enjoy automated CI/CD!
 
 ---
@@ -100,10 +100,10 @@ Forum App is primed for Vercel:
 
 Contributions are welcome! Please follow these steps:
 
-1.⁠ ⁠Fork the repository.
-2.⁠ ⁠Create a new branch: ⁠ git checkout -b feature/YourFeature ⁠.
-3.⁠ ⁠Make your changes and commit: ⁠ git commit -m "feat: add new feature" ⁠.
-4.⁠ ⁠Push to your fork: ⁠ git push origin feature/YourFeature ⁠.
+1.⁠ ⁠Fork the repository.</br>
+2.⁠ ⁠Create a new branch: ⁠ git checkout -b feature/YourFeature ⁠.</br>
+3.⁠ ⁠Make your changes and commit: ⁠ git commit -m "feat: add new feature" ⁠.</br>
+4.⁠ ⁠Push to your fork: ⁠ git push origin feature/YourFeature ⁠.</br>
 5.⁠ ⁠Open a Pull Request describing your changes.
 
 Please ensure your code follows existing style and includes relevant tests.
@@ -114,5 +114,5 @@ Please ensure your code follows existing style and includes relevant tests.
 
 For questions or feedback, reach out to the maintainer:
 
-•⁠ ⁠GitHub: [Vaibhav Jha](https://github.com/Code14-ZeD)
-•⁠ ⁠Email: [vaibhavjha22@gmail.com](mailto:vaibhavjha22@gmail.com)
+- ⁠GitHub: [Vaibhav Jha](https://github.com/Code14-ZeD)
+- ⁠Email: [vaibhavjha22@gmail.com](mailto:vaibhavjha22@gmail.com)
