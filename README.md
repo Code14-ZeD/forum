@@ -14,7 +14,6 @@ Check out the live version: [forum-pi-seven.vercel.app](https://forum-pi-seven.v
 
 - ⁠*Clean, Intuitive UI* – Responsive design optimized for desktop and mobile.
 - ⁠*Social Sign‑On* – Secure authentication via GitHub and Google OAuth.
-- ⁠*Threaded Discussions* – Nested replies for organized conversations.
 - ⁠*Dark Mode* – User‑selectable light/dark themes.
 
 ---
@@ -44,42 +43,43 @@ Check out the live version: [forum-pi-seven.vercel.app](https://forum-pi-seven.v
 
 1.⁠ ⁠*Clone the repo*
 
-⁠ bash
-git clone https://github.com/yourusername/forum-app.git
-cd forum-app
- ⁠
+```bash
+git clone https://github.com/Code14-ZeD/forum.git
+cd forum
+```
 
 2.⁠ ⁠*Install dependencies*
 
-⁠ bash
+```bash
 npm install
 
 # or
 
 yarn install
- ⁠
+```
 
 3.⁠ ⁠*Environment configuration*
-Create a ⁠ .env.local ⁠ file at the project root:
+Create a ⁠ .env.development⁠ file at the project root:
 
-⁠ ini
-DATABASE_URL=postgresql://<user>:<password>@<host>/<db>
-NEXTAUTH_URL=http://localhost:3000
-GITHUB_ID=<your_github_client_id>
-GITHUB_SECRET=<your_github_client_secret>
-GOOGLE_ID=<your_google_client_id>
-GOOGLE_SECRET=<your_google_client_secret>
- ⁠
+```⁠ini
+NEXT_PUBLIC_VERCEL_URL=http://localhost:3000
+POSTGRES_URL=postgresql://<user>:<password>@<host>/<db>
+BETTER_AUTH_SECRET=<better_auth_secret>
+GITHUB_CLIENT_ID=<your_github_client_id>
+GITHUB_CLIENT_SECRET=<your_github_client_secret>
+GOOGLE_CLIENT_ID=<your_google_client_id>
+GOOGLE_CLIENT_SECRET=<your_google_client_secret>
+```
 
 4.⁠ ⁠*Run locally*
 
-⁠ bash
+```bash
 npm run dev
 
 # or
 
 yarn dev
- ⁠
+```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
