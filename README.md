@@ -17,4 +17,4 @@ The Forum App is a online discussion platform designed to foster community inter
 
 ## Deployment
 
-This app is deployed on vercel and database is hosted on neon. [Deployment link] (https://forum-pi-seven.vercel.app/)
+This app is deployed on vercel and database is hosted on neon. [Deployment link](https://forum-pi-seven.vercel.app/)
