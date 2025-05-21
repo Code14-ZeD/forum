@@ -20,7 +20,7 @@ import { Textarea } from "@/components/ui/textarea"
 import Access from "@/components/access"
 
 const formSchema = z.object({
-  comment: z.string().min(2, {
+  comment: z.string().min(1, {
     message: "Comment must be at least 1 characters.",
   }),
 })
