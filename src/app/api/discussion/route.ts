@@ -185,3 +185,43 @@ export async function DELETE(request: Request) {
     }
   }
 }
+
+export async function PATCH(request: Request) {
+  try {
+    const { id, data } = await request.json()
+
+    if (!id || (!data.title && !data.description)) {
+      return Response.json({ message: "Missing fields" }, { status: 400 })
+    }
+
+    const session = await auth.api.getSession({
+      headers: request.headers,
+    })
+
+    if (!session) {
+      return Response.json({ message: "Unauthorized" }, { status: 401 })
+    }
+
+    // Prepare the fields to update
+    const updateData: Partial<typeof discussion.$inferInsert> = {
+      updatedAt: new Date(),
+    }
+
+    if (data.title !== undefined) updateData.title = data.title
+    if (data.description !== undefined) updateData.description = data.description
+
+    const result = await db
+      .update(discussion)
+      .set(updateData)
+      .where(and(eq(discussion.id, id), eq(discussion.userId, session.user.id)))
+
+    return Response.json({ message: "OK", result }, { status: 200 })
+  } catch (error: unknown) {
+    console.log(error)
+    if (error instanceof Error) {
+      return Response.json({ message: error.message }, { status: 404 })
+    } else {
+      return Response.json({ message: "404" }, { status: 404 })
+    }
+  }
+}

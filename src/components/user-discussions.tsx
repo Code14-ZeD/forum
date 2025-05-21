@@ -9,6 +9,7 @@ import { Loader2, MessageSquare } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Delete from "@/components/delete-confirmation"
+import UpdateDiscussion from "@/components/update-discussion"
 
 export default function Page({ user }: { user: User | null }) {
   const { data, isError, isLoading } = useQuery({
@@ -95,10 +96,13 @@ export default function Page({ user }: { user: User | null }) {
                   )}
                 </p>
               </div>
-              <div className="flex w-18 items-center justify-center py-2">
-                <p className="flex cursor-pointer items-center gap-x-1 rounded-md px-3 py-1 text-sm">
+              <div className="flex w-18 flex-col items-center justify-between py-2">
+                <p className="flex items-center gap-x-1 rounded-md px-3 py-1 text-sm">
                   <MessageSquare className="size-4" /> {comments || 0}
                 </p>
+                {user?.id == userId && (
+                  <UpdateDiscussion user={user} discussion={{ id, title, description }} />
+                )}
               </div>
             </div>
           ),

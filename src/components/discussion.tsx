@@ -11,6 +11,7 @@ import { Loader2, MessageSquare } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Delete from "@/components/delete-confirmation"
 import NewComment from "@/components/new-comment"
+import UpdateDiscussion from "@/components/update-discussion"
 
 export default function Page({ user }: { user: User | null }) {
   const pathname = usePathname()
@@ -77,9 +78,15 @@ export default function Page({ user }: { user: User | null }) {
             </div> 
             */}
             <div className="flex items-center justify-center py-2">
-              <p className="flex cursor-pointer items-center gap-x-1 rounded-md py-1 text-sm">
+              <p className="mr-2 flex items-center gap-x-1 rounded-md py-1 text-sm">
                 <MessageSquare className="size-4" /> {data.comments.length}
               </p>
+              {user && user?.id == data.userId && (
+                <UpdateDiscussion
+                  user={user}
+                  discussion={{ id: data.id, title: data.title, description: data.description }}
+                />
+              )}
             </div>
           </div>
 
