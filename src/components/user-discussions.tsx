@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 
 import { useQuery } from "@tanstack/react-query"
 import { type User } from "better-auth"
@@ -12,8 +11,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Delete from "@/components/delete-confirmation"
 
 export default function Page({ user }: { user: User | null }) {
-  const pathname = usePathname()
-
   const { data, isError, isLoading } = useQuery({
     queryKey: [`discussion-${user?.id}`],
     queryFn: async () => {
