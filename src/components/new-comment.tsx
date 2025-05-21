@@ -27,10 +27,14 @@ const formSchema = z.object({
 
 export default function Component({
   discussionId,
+  commentId,
   user,
+  setReply,
 }: {
   discussionId: string
+  commentId?: string
   user: User | null
+  setReply?: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const queryClient = useQueryClient()
 
@@ -49,6 +53,7 @@ export default function Component({
         },
         body: JSON.stringify({
           discussionId,
+          commentId,
           ...values,
         }),
       })
@@ -65,6 +70,7 @@ export default function Component({
         queryKey: [`discussion-${discussionId}`],
       })
       form.reset()
+      if (setReply != undefined) setReply(false)
     },
     onError: (error) => {
       console.error("Error submitting data:", error)

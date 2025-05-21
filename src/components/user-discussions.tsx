@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 import { useQuery } from "@tanstack/react-query"
 import { type User } from "better-auth"
@@ -12,10 +13,11 @@ import Delete from "@/components/delete-confirmation"
 import UpdateDiscussion from "@/components/update-discussion"
 
 export default function Page({ user }: { user: User | null }) {
+  const pathname = usePathname()
   const { data, isError, isLoading } = useQuery({
-    queryKey: [`discussion-${user?.id}`],
+    queryKey: [`discussion-${pathname.split("/")[2]}`],
     queryFn: async () => {
-      const response = await fetch(`/api/discussion?userId=${user?.id}`)
+      const response = await fetch(`/api/discussion?userId=${pathname.split("/")[2]}`)
       if (!response.ok) throw new Error("Something went wrong!")
       return (await response.json()).data
     },

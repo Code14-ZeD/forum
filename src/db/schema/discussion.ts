@@ -22,6 +22,7 @@ export const comment = pgTable("comment", {
   discussionId: text("discussionId")
     .notNull()
     .references(() => discussion.id, { onDelete: "cascade" }),
+  commentId: text("commentId"),
   userId: text("userId")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),

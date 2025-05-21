@@ -31,6 +31,7 @@ export async function GET(request: Request) {
           id: comment.id,
           userId: comment.userId,
           discussionId: comment.discussionId,
+          commentId: comment.commentId,
           comment: comment.comment,
           createdAt: comment.createdAt,
           username: user.name,
@@ -110,7 +111,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const { title, description, discussionId, comment: _comment } = await request.json()
+    const { title, description, discussionId, commentId, comment: _comment } = await request.json()
 
     const session = await auth.api.getSession({
       headers: request.headers,
@@ -124,6 +125,7 @@ export async function POST(request: Request) {
       await db.insert(comment).values({
         userId: session.user.id,
         discussionId,
+        commentId,
         comment: _comment,
         createdAt: new Date(),
       })

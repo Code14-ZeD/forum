@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/
 
 export default function Page({ id, pathname }: { id: string; pathname: string | null }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const { mutate, isPending } = useDeleteDiscussion(pathname, setIsDialogOpen)
+  const { mutate } = useDeleteDiscussion(pathname, setIsDialogOpen)
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -22,7 +22,6 @@ export default function Page({ id, pathname }: { id: string; pathname: string | 
           <Button
             className="cursor-pointer"
             type="submit"
-            disabled={isPending}
             onClick={() => {
               mutate(id)
             }}
