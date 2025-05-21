@@ -202,7 +202,6 @@ export async function PATCH(request: Request) {
       return Response.json({ message: "Unauthorized" }, { status: 401 })
     }
 
-    // Prepare the fields to update
     const updateData: Partial<typeof discussion.$inferInsert> = {
       updatedAt: new Date(),
     }
