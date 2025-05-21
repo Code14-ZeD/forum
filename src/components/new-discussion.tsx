@@ -22,10 +22,10 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 
 const formSchema = z.object({
-  title: z.string().min(12, {
+  title: z.string().min(1, {
     message: "Title must be at least 12 characters.",
   }),
-  description: z.string().min(24, {
+  description: z.string().min(2, {
     message: "Description must be at least 24 characters.",
   }),
 })

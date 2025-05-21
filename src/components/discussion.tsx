@@ -3,47 +3,23 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { type User } from "better-auth"
 import { formatDistance } from "date-fns"
 import { Loader2, MessageSquare } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Delete from "@/components/delete-confirmation"
 import NewComment from "@/components/new-comment"
 
 export default function Page({ user }: { user: User | null }) {
   const pathname = usePathname()
-  const queryClient = useQueryClient()
-
   const { data, isError, isLoading } = useQuery({
     queryKey: [`discussion-${pathname.split("/")[1]}`],
     queryFn: async () => {
       const response = await fetch(`/api/discussion?id=${pathname.split("/")[1]}`)
       if (!response.ok) throw new Error("Something went wrong!")
       return (await response.json()).data ?? {}
-    },
-  })
-  const mutation = useMutation({
-    mutationFn: async (id: string) => {
-      const response = await fetch("/api/discussion", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      })
-      if (!response.ok) {
-        throw new Error("Something went wrong!")
-      }
-      return await response.json()
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["discussions"],
-      })
-      queryClient.invalidateQueries({
-        queryKey: [`discussion-${pathname.split("/")[1]}`],
-      })
     },
   })
 
@@ -86,14 +62,7 @@ export default function Page({ user }: { user: User | null }) {
                 {user?.id == data.userId && (
                   <>
                     &nbsp;∙&nbsp;
-                    <span
-                      className="text-destructive cursor-pointer"
-                      onClick={() => {
-                        mutation.mutate(data.id)
-                      }}
-                    >
-                      Delete
-                    </span>
+                    <Delete id={data.id} pathname={null} />
                   </>
                 )}
               </p>

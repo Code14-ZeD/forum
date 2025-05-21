@@ -2,43 +2,21 @@
 
 import Link from "next/link"
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { type User } from "better-auth"
 import { differenceInMinutes, formatDistance } from "date-fns"
 import { Loader2, MessageSquare } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Delete from "@/components/delete-confirmation"
 
 export default function Page({ user }: { user: User | null }) {
-  const queryClient = useQueryClient()
-
   const { data, isError, isLoading } = useQuery({
     queryKey: ["discussions"],
     queryFn: async () => {
       const response = await fetch("/api/discussion")
       if (!response.ok) throw new Error("Something went wrong!")
       return (await response.json()).data
-    },
-  })
-
-  const mutation = useMutation({
-    mutationFn: async (id: string) => {
-      const response = await fetch("/api/discussion", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      })
-      if (!response.ok) {
-        throw new Error("Something went wrong!")
-      }
-      return await response.json()
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["discussions"],
-      })
     },
   })
 
@@ -112,14 +90,7 @@ export default function Page({ user }: { user: User | null }) {
                   {user?.id == userId && (
                     <>
                       &nbsp;∙&nbsp;
-                      <span
-                        className="text-destructive cursor-pointer"
-                        onClick={() => {
-                          mutation.mutate(id)
-                        }}
-                      >
-                        Delete
-                      </span>
+                      <Delete id={id} pathname={null} />
                     </>
                   )}
                 </p>
