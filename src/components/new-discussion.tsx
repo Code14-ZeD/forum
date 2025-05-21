@@ -3,12 +3,12 @@
 import { useState } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { type User } from "better-auth"
 import { Plus } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
+import { formSchema, useCreateDiscussion } from "@/hooks/use-create-discussion"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import {
@@ -21,19 +21,8 @@ import {
 } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
 
-const formSchema = z.object({
-  title: z.string().min(12, {
-    message: "Title must be at least 12 characters.",
-  }),
-  description: z.string().min(24, {
-    message: "Description must be at least 24 characters.",
-  }),
-})
-
 export default function Page({ user }: { user: User }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-
-  const queryClient = useQueryClient()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,38 +30,24 @@ export default function Page({ user }: { user: User }) {
       title: "",
       description: "",
     },
+    mode: "onChange",
   })
-  const mutation = useMutation({
-    mutationFn: async (values: z.infer<typeof formSchema>) => {
-      const response = await fetch("/api/discussion", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      })
-      if (!response.ok) {
-        throw new Error("Something went wrong!")
-      }
-      return await response.json()
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["discussions"],
-      })
-      queryClient.invalidateQueries({
-        queryKey: [`discussions-${user.id}`],
-      })
-      form.reset()
-      setIsDialogOpen(false)
-    },
-    onError: (error) => {
-      console.error("Error submitting data:", error)
-    },
+
+  const mutation = useCreateDiscussion(user, () => {
+    form.reset()
+    setIsDialogOpen(false)
   })
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    mutation.mutate(values)
+    mutation.mutate(values, {
+      onError: (error) => {
+        console.error("Error submitting data:", error)
+        form.setError("root", {
+          type: "manual",
+          message: "Failed to create discussion. Please try again.",
+        })
+      },
+    })
   }
 
   return (
@@ -112,7 +87,14 @@ export default function Page({ user }: { user: User }) {
                 </FormItem>
               )}
             />
-            <Button className="w-full cursor-pointer" type="submit" disabled={mutation.isPending}>
+            {form.formState.errors.root && (
+              <p className="text-sm text-red-500">{form.formState.errors.root.message}</p>
+            )}
+            <Button
+              className="w-full cursor-pointer"
+              type="submit"
+              disabled={mutation.isPending || !form.formState.isValid}
+            >
               {mutation.isPending ? "Submitting..." : "Submit"}
             </Button>
           </form>
